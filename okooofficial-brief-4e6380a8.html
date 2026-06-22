@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>澳客 · 让信息更简洁</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: linear-gradient(145deg, #fde9d8 0%, #f7d9be 50%, #f3cba8 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      line-height: 1.7;
+      color: #382f28;
+    }
+
+    .card {
+      max-width: 780px;
+      width: 100%;
+      background: #fffcf9;
+      border-radius: 36px;
+      padding: 2.8rem 2.5rem;
+      box-shadow: 0 20px 35px -10px rgba(120, 70, 30, 0.2), 0 6px 14px rgba(0,0,0,0.02);
+      transition: box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 24px 42px -12px rgba(100, 60, 25, 0.25);
+    }
+
+    h1 {
+      font-size: 2.3rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #3d2c1e;
+      margin-bottom: 0.15rem;
+      line-height: 1.2;
+    }
+
+    .subhead {
+      font-size: 1.05rem;
+      color: #7f6857;
+      border-left: 4px solid #e7cbb2;
+      padding-left: 1rem;
+      margin: 0.5rem 0 1.8rem 0;
+      font-weight: 400;
+    }
+
+    .intro {
+      font-size: 1.1rem;
+      margin-bottom: 1.4rem;
+      background: #faf2ea;
+      padding: 1rem 1.4rem;
+      border-radius: 18px;
+      color: #3d3026;
+    }
+
+    .intro strong {
+      color: #9f6b47;
+      font-weight: 600;
+    }
+
+    p {
+      margin-bottom: 1.1rem;
+      font-size: 1rem;
+    }
+
+    .highlight-quote {
+      background: #f7ede2;
+      border-left: 6px solid #c7926a;
+      padding: 0.9rem 1.6rem;
+      border-radius: 20px 10px 10px 20px;
+      margin: 1.6rem 0;
+      font-style: normal;
+      color: #3e3229;
+      font-size: 0.98rem;
+      box-shadow: inset 0 1px 3px rgba(255,255,255,0.6);
+    }
+
+    .highlight-quote::before {
+      content: "💡 提示 ";
+      font-weight: 600;
+      color: #9a6b48;
+    }
+
+    .tagline {
+      display: inline-block;
+      background: #e0cdbb;
+      color: #2c221b;
+      padding: 0.35rem 1.2rem;
+      border-radius: 60px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      margin-bottom: 1.4rem;
+    }
+
+    a {
+      color: #a6764f;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    a:hover {
+      border-bottom-color: #c3956d;
+      color: #7a5537;
+    }
+
+    .btn-link {
+      display: inline-block;
+      background: #e6d2bf;
+      color: #3a2b1f;
+      padding: 0.55rem 1.8rem;
+      border-radius: 60px;
+      font-weight: 500;
+      font-size: 1rem;
+      text-decoration: none;
+      border: none;
+      box-shadow: 0 3px 5px rgba(140, 90, 50, 0.08);
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 0.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn-link:hover {
+      background: #dac1ac;
+      transform: scale(1.02);
+      border-bottom: none;
+      color: #2b1f15;
+    }
+
+    .faq-mini {
+      background: #f7f0e9;
+      border-radius: 24px;
+      padding: 1.2rem 1.5rem;
+      margin: 2rem 0 1.2rem 0;
+    }
+
+    .faq-mini h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #4b3829;
+      margin-bottom: 0.7rem;
+      letter-spacing: -0.2px;
+    }
+
+    .faq-item {
+      margin-bottom: 0.7rem;
+    }
+
+    .faq-item strong {
+      color: #8c6548;
+      font-weight: 600;
+    }
+
+    .faq-item p {
+      margin: 0.15rem 0 0.3rem 0;
+      font-size: 0.95rem;
+      color: #4f3f33;
+    }
+
+    .footer-note {
+      margin-top: 1.8rem;
+      font-size: 0.9rem;
+      color: #7b6859;
+      border-top: 1px solid #eadacb;
+      padding-top: 1.2rem;
+      text-align: left;
+    }
+
+    @media (max-width: 520px) {
+      .card {
+        padding: 1.8rem 1.2rem;
+        border-radius: 28px;
+      }
+      h1 {
+        font-size: 1.8rem;
+      }
+      .subhead {
+        font-size: 0.95rem;
+        padding-left: 0.8rem;
+      }
+      .intro {
+        font-size: 1rem;
+        padding: 0.8rem 1rem;
+      }
+      .highlight-quote {
+        padding: 0.7rem 1rem;
+      }
+      .faq-mini {
+        padding: 1rem 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="tagline">博客式 · 轻介绍</span>
+    <h1>澳客 · 你所找的</h1>
+    <div class="subhead">一个让人快速理解「这是什么」的简短页面</div>
+
+    <div class="intro">
+      <strong>如果你是第一次见到澳客</strong>，也许只是想确认：这个网站到底提供什么？是否值得花时间浏览？下面几段话，帮你快速建立认知。
+    </div>
+
+    <p>
+      当你打开一个不熟悉的站点，最怕的就是云里雾里、找不到重点。<strong>简洁与直接</strong>，是<a href="https://okooofficial.com">澳客</a>从一开始就坚持的风格。它不是一个复杂的平台，而更像一个聚焦于信息筛选与展示的窗口——让访问者用最短路径理解核心内容，而不是被广告或冗余功能分散注意力。
+    </p>
+
+    <p>
+      从实际使用的角度看，澳客的设计围绕“轻量化浏览”展开：没有沉重的注册门槛，也没有频繁的弹窗引导。页面结构通常保持干净，文字和视觉元素服务于一个目的——帮助你快速判断是否找到需要的信息。无论是查阅某个方向的内容，还是偶尔获取灵感，它都倾向于让用户自己掌控节奏。
+    </p>
+
+    <div class="highlight-quote">
+      第一次使用建议：先浏览整体布局，留意你感兴趣的栏目或标签。澳客的内容组织偏重直觉，通常不需要说明书也能顺畅阅读。
+    </div>
+
+    <p>
+      不少用户反馈，<strong>澳客最吸引人的地方是“没有压迫感”</strong>。在信息过载的时代，一个不催促你注册、不频繁推送通知的网站，反而更容易让人静下心来看几段文字。当然，它也有自己的更新节奏和内容偏好，如果你觉得对味，可以偶尔过来看看；如果风格不合，也不必勉强——毕竟工具应该为人服务，而不是相反。
+    </p>
+
+    <p>
+      另外，值得留意的是：澳客并不试图覆盖所有领域，而是有所取舍。这意味着你在这里看到的内容，往往经过一定筛选，而不是海量堆砌。对于追求效率的浏览者来说，这种做减法的思路，反而可能带来更高的信息密度。
+    </p>
+
+    <div class="faq-mini">
+      <h3>常见疑问 · 快速摘要</h3>
+      <div class="faq-item">
+        <strong>Q： 澳客需要注册才能用吗？</strong>
+        <p>A： 绝大多数内容开放浏览，无需注册。部分互动或收藏功能可能依赖账号，但不影响基础阅读。</p>
+      </div>
+      <div class="faq-item">
+        <strong>Q： 内容更新频繁吗？</strong>
+        <p>A： 保持稳定节奏，不会刷屏式更新。适合偶尔访问而非必须每日打卡。</p>
+      </div>
+      <div class="faq-item">
+        <strong>Q： 移动端体验如何？</strong>
+        <p>A： 适配良好，在手机和电脑上都能获得接近的阅读感受，无需额外缩放。</p>
+      </div>
+    </div>
+
+    <p>
+      如果你愿意花三分钟浏览，相信对<a href="https://okooofficial.com">澳客</a>能做什么、不适合做什么，会有一个比较清晰的判断。最好的了解方式，永远是亲自点开看看——毕竟别人的描述，不如自己的一次直接感受。
+    </p>
+
+    <div style="margin: 1.4rem 0 1rem 0;">
+      <a href="https://okooofficial.com" class="btn-link">澳客</a>
+      <span style="font-size: 0.9rem; color: #7b6859; margin-left: 0.6rem;">—— 直接浏览，无需绕路</span>
+    </div>
+
+    <div class="footer-note">
+      <span>本文为独立介绍页 · 内容基于真实感受撰写，无夸大引导</span>
+    </div>
+  </div>
+</body>
+</html>
