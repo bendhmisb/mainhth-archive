@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>常识查询目录 · 澳客</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #fff0e6 0%, #f9e3d0 40%, #f7d9c0 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            line-height: 1.6;
+            color: #2f2a24;
+        }
+
+        .page-wrap {
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        /* 主卡片 */
+        .knowledge-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(4px);
+            border-radius: 40px 40px 32px 32px;
+            box-shadow: 0 18px 36px -12px rgba(100, 60, 40, 0.25), 0 4px 12px rgba(0,0,0,0.03);
+            padding: 2.5rem 2rem 3rem;
+            transition: box-shadow 0.2s;
+        }
+
+        /* 头部区域 */
+        .hero-title {
+            font-size: 2.6rem;
+            font-weight: 380;
+            letter-spacing: 1px;
+            color: #4d3427;
+            border-left: 6px solid #c98662;
+            padding-left: 1.2rem;
+            margin-bottom: 0.4rem;
+            line-height: 1.2;
+        }
+
+        .hero-sub {
+            margin-top: 0.2rem;
+            margin-bottom: 2rem;
+            padding-left: 1.8rem;
+            font-size: 1.1rem;
+            color: #7b5e4b;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.5rem;
+        }
+
+        .hero-sub span {
+            background: #eadcd1;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            color: #4a3428;
+        }
+
+        /* 目录格栅 */
+        .index-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 1.5rem;
+            margin: 2.2rem 0 2rem;
+        }
+
+        .dir-item {
+            background: #faf5f0;
+            border-radius: 28px;
+            padding: 1.25rem 1.4rem;
+            box-shadow: 0 4px 8px rgba(140, 100, 70, 0.04);
+            transition: background 0.2s, transform 0.1s;
+            border: 1px solid rgba(200, 170, 150, 0.2);
+        }
+
+        .dir-item:hover {
+            background: #fff9f5;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px -8px rgba(120, 80, 50, 0.12);
+        }
+
+        .dir-item h3 {
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: #6d4c38;
+            margin-bottom: 0.35rem;
+            letter-spacing: 0.3px;
+        }
+
+        .dir-item p {
+            font-size: 0.9rem;
+            color: #6b5544;
+            opacity: 0.85;
+            line-height: 1.5;
+        }
+
+        .dir-item .label-tag {
+            display: inline-block;
+            margin-top: 0.6rem;
+            font-size: 0.75rem;
+            background: #dccfc4;
+            padding: 0.1rem 0.9rem;
+            border-radius: 30px;
+            color: #3f2e24;
+            letter-spacing: 0.2px;
+        }
+
+        /* 说明/延伸区 */
+        .info-blocks {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            margin: 2.2rem 0 1.8rem;
+        }
+
+        .block {
+            flex: 1 1 200px;
+            background: #f7efe8;
+            border-radius: 32px;
+            padding: 1.5rem 1.6rem;
+            border: 1px solid #e7d7cb;
+        }
+
+        .block h4 {
+            font-weight: 450;
+            font-size: 1.1rem;
+            color: #674d39;
+            margin-bottom: 0.7rem;
+            border-bottom: 2px dotted #d8bfaf;
+            padding-bottom: 0.3rem;
+        }
+
+        .block ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .block ul li {
+            padding: 0.3rem 0;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.4rem;
+        }
+
+        .block ul li::before {
+            content: "·";
+            color: #b68d74;
+            font-weight: bold;
+            font-size: 1.4rem;
+            line-height: 1;
+        }
+
+        .notice-area {
+            background: #f7ede4;
+            border-radius: 28px;
+            padding: 1.2rem 1.8rem;
+            margin: 2rem 0 1.5rem;
+            border-left: 6px solid #b58d77;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.6rem 1.2rem;
+        }
+
+        .notice-area .label {
+            background: #cbaa93;
+            color: #2b1f18;
+            padding: 0.15rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.4px;
+        }
+
+        .notice-area p {
+            flex: 1;
+            color: #3d2d22;
+            font-size: 0.98rem;
+        }
+
+        /* 特色链接区 */
+        .faq-mini {
+            background: #f4e9e0;
+            border-radius: 28px;
+            padding: 1.6rem 1.8rem;
+            margin-top: 2rem;
+        }
+
+        .faq-mini h4 {
+            font-weight: 450;
+            color: #523e30;
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+        }
+
+        .faq-mini .faq-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem 1.5rem;
+            margin-top: 0.8rem;
+        }
+
+        .faq-mini .faq-row span {
+            background: #fcf6f0;
+            padding: 0.2rem 1.1rem;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: #4a3527;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+        }
+
+        .faq-mini .faq-row span i {
+            font-style: normal;
+            color: #b28164;
+            margin-right: 0.3rem;
+        }
+
+        .ref-link {
+            display: inline-block;
+            background: #cfa78b;
+            color: #1f1812;
+            padding: 0.15rem 1.2rem;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            font-weight: 460;
+            transition: background 0.15s, color 0.15s;
+            border: 1px solid #b4896f;
+        }
+
+        .ref-link:hover {
+            background: #ba8d72;
+            color: #0f0b08;
+        }
+
+        .inline-link {
+            color: #7b4f35;
+            text-decoration: none;
+            font-weight: 470;
+            border-bottom: 2px solid #dbbcac;
+            transition: border-color 0.15s;
+        }
+
+        .inline-link:hover {
+            border-bottom-color: #935d3c;
+        }
+
+        .footer-note {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #6f5b4d;
+            opacity: 0.7;
+            letter-spacing: 0.3px;
+        }
+
+        @media (max-width: 550px) {
+            .knowledge-card {
+                padding: 1.8rem 1rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+                padding-left: 0.8rem;
+            }
+
+            .hero-sub {
+                padding-left: 1rem;
+                font-size: 0.95rem;
+            }
+
+            .index-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .block {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrap">
+    <div class="knowledge-card">
+        <!-- 标题区 -->
+        <div class="hero-title">日常对照 · 延伸阅读</div>
+        <div class="hero-sub">
+            <span>常识索引</span>
+            <span>赛事辅助</span>
+            <span>数据速查</span>
+        </div>
+
+        <!-- 目录感网格：知识库入口块 -->
+        <div class="index-grid">
+            <div class="dir-item">
+                <h3>📋 术语对照</h3>
+                <p>让球、大小分、胜平负常见表达与转换</p>
+                <span class="label-tag">即时参考</span>
+            </div>
+            <div class="dir-item">
+                <h3>📅 赛程筛选</h3>
+                <p>按联赛、日期、轮次快速定位</p>
+                <span class="label-tag">分类浏览</span>
+            </div>
+            <div class="dir-item">
+                <h3>📊 统计延伸</h3>
+                <p>主客场、近况、交锋趋势</p>
+                <span class="label-tag">辅助判断</span>
+            </div>
+            <div class="dir-item">
+                <h3>🔍 指数变化</h3>
+                <p>初盘、即时、凯利、返还率</p>
+                <span class="label-tag">动态对比</span>
+            </div>
+        </div>
+
+        <!-- 说明区 + 延伸信息块 -->
+        <div class="info-blocks">
+            <div class="block">
+                <h4>📌 查询场景</h4>
+                <ul>
+                    <li>赛前阵容与天气</li>
+                    <li>历史同赔对照</li>
+                    <li>进球时间分布</li>
+                    <li>红黄牌统计</li>
+                </ul>
+            </div>
+            <div class="block">
+                <h4>📎 常用参考</h4>
+                <ul>
+                    <li>联赛积分榜</li>
+                    <li>最佳射手</li>
+                    <li>升降级形势</li>
+                    <li>教练更迭记录</li>
+                </ul>
+            </div>
+            <div class="block">
+                <h4>🧩 阅读延伸</h4>
+                <ul>
+                    <li>赛事回顾专栏</li>
+                    <li>数据解读笔记</li>
+                    <li>赛季专题</li>
+                    <li>球探报告摘要</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 提示区（notice） -->
+        <div class="notice-area">
+            <span class="label">提示</span>
+            <p>信息更新频率因联赛而异，建议结合多源比对。若需要基础数据或赛程索引，可留意站内分类目录。</p>
+            <span class="label">延伸</span>
+            <p>部分术语解释与对照表可在侧边栏找到。</p>
+        </div>
+
+        <!-- FAQ 摘要 + 链接 -->
+        <div class="faq-mini">
+            <h4>常见疑问摘要</h4>
+            <div class="faq-row">
+                <span><i>Q:</i> 如何快速查找让球变化？</span>
+                <span><i>A:</i> 在指数变化板块选择时间轴。</span>
+                <span><i>Q:</i> 历史交锋在哪看？</span>
+                <span><i>A:</i> 球队页面下方有交锋标签。</span>
+                <span><i>Q:</i> 有没有推荐阅读？</span>
+                <span><i>A:</i> 可关注赛季专题与数据笔记。</span>
+            </div>
+            <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center;">
+                <span style="font-size:0.9rem; color:#4d382b;">更多信息参考</span>
+                <!-- 严格符合要求的 a 标签：可见文本 = “澳客” -->
+                <a href="https://down-okooo.com" class="ref-link">澳客</a>
+                <span style="font-size:0.9rem; color:#4d382b;">或浏览对应分类。</span>
+            </div>
+            <!-- 也可以自然嵌入句子中 -->
+            <p style="margin-top: 1.2rem; font-size:0.95rem; background: #fcf6f0; padding:0.5rem 1.2rem; border-radius: 60px;">
+                日常数据查询与延伸阅读，都可以在 <a href="https://down-okooo.com" class="inline-link">澳客</a> 的目录中找到对应入口。
+            </p>
+        </div>
+
+        <!-- 角落引用 -->
+        <div class="footer-note">
+            内容仅供参考 · 基于公开信息整合
+        </div>
+    </div>
+</div>
+</body>
+</html>
